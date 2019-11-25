@@ -1,0 +1,801 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Get_ES_DataTable"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ss="clr-namespace:System.Security;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:uit="http://schemas.uipath.com/workflow/activities/terminal"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Value" Type="InOutArgument(x:String)" />
+    <x:Property Name="Index" Type="InOutArgument(x:Int32)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Get_ES_DataTable_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Credentials.Activities</x:String>
+      <x:String>UiPath.Database.Activities</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.Checkpoint.Activities</x:String>
+      <x:String>UiPath.DataTable.Activities</x:String>
+      <x:String>UiPath.Dialog.Activities</x:String>
+      <x:String>UiPath.FileSystem.Activities</x:String>
+      <x:String>UiPath.Framework.Activities</x:String>
+      <x:String>UiPath.PowerShell.Activities</x:String>
+      <x:String>UiPath.RegEx.Activities</x:String>
+      <x:String>UiPath.FTP.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Mail.Exchange.Activities</x:String>
+      <x:String>UiPath.Mail.IMAP.Activities</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.POP3.Activities</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.PDF.Activities</x:String>
+      <x:String>UiPath.XPS.Activities</x:String>
+      <x:String>UiPath.Enterprise.Activities.Assets</x:String>
+      <x:String>UiPath.Enterprise.Activities.Process</x:String>
+      <x:String>UiPath.Enterprise.Activities.Queues</x:String>
+      <x:String>UiPath.Enterprise.Activities</x:String>
+      <x:String>UiPath.Script.Activities</x:String>
+      <x:String>UiPath.Script.Activities.PowerShell</x:String>
+      <x:String>UiPath.Script.Activities.AutoHotKey</x:String>
+      <x:String>UiPath.Web</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>UiPath.JSON.Activities</x:String>
+      <x:String>UiPath.REST.Activities</x:String>
+      <x:String>UiPath.SOAP.Activities</x:String>
+      <x:String>UiPath.XML.Activities</x:String>
+      <x:String>UiPath.Word</x:String>
+      <x:String>UiPath.Terminal</x:String>
+      <x:String>UiPath.Terminal.Enums</x:String>
+      <x:String>UiPath.Terminal.Activities</x:String>
+      <x:String>UiPath.Terminal.Advanced.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Credentials.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Framework.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.FTP.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Enterprise.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Script.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>UiPath.Terminal</AssemblyReference>
+      <AssemblyReference>UiPath.Terminal.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Get ES DataTable" sap2010:WorkflowViewState.IdRef="Sequence_77">
+    <Sequence DisplayName="Start Process ES" sap2010:WorkflowViewState.IdRef="Sequence_76">
+      <ui:StartProcess Arguments="{x:Null}" WorkingDirectory="{x:Null}" DisplayName="Start process" FileName="C:\Program Files (x86)\Attachmate\R_IBM\GECL_Online.rsf" sap2010:WorkflowViewState.IdRef="StartProcess_1" />
+      <Delay Duration="00:00:05" sap2010:WorkflowViewState.IdRef="Delay_9" />
+      <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'R8win.exe GECL_Online.r...'" sap2010:WorkflowViewState.IdRef="WindowScope_1" InformativeScreenshot="7a75774786cdbfdea0df5757b276187d" Selector="&lt;wnd app='r8win.exe' cls='REFLECTION_EIGHT' title='*IBM 3270 端末' /&gt;">
+        <ui:WindowScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <ui:MaximizeWindow Window="{x:Null}" DisplayName="Maximize window" sap2010:WorkflowViewState.IdRef="MaximizeWindow_3" />
+          </ActivityAction>
+        </ui:WindowScope.Body>
+      </ui:WindowScope>
+    </Sequence>
+    <uit:TerminalSession ContinueOnError="{x:Null}" ExistingConnection="{x:Null}" OutputConnection="{x:Null}" sap2010:Annotation.AnnotationText="ESにLogin,データ表示" CloseConnection="True" ConnectionString="{}{'AttachExisting':false,'ConnectionType':2,'EhllBasicMode':false,'EhllDll':'C:\\Program Files (x86)\\Attachmate\\Reflection\\Hllapi32.dll','EhllEnhanced':false,'EhllFunction':'hllapi','EhllSession':'A','Host':null,'Mode':1,'Port':23,'Profile':'C:\\Program Files (x86)\\Attachmate\\R_IBM\\GECL_Online.rsf','ProviderType':4,'ShowTerminal':true,'TerminalType':0}" DelayMS="1000" DisplayName="Private: Terminal Session" sap2010:WorkflowViewState.IdRef="TerminalSession_7" TimeoutMS="50000">
+      <uit:TerminalSession.Body>
+        <ActivityAction x:TypeArguments="uit:TerminalConnection">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="uit:TerminalConnection" Name="terminalSession" />
+          </ActivityAction.Argument>
+          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_58">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="ss:SecureString" Name="password" />
+              <Variable x:TypeArguments="x:String" Name="ssoid" />
+              <Variable x:TypeArguments="sd:DataTable" Name="ESDataTable" />
+              <Variable x:TypeArguments="sd:DataRow" Name="aRowData" />
+              <Variable x:TypeArguments="x:Int32" Name="n" />
+              <Variable x:TypeArguments="sd:DataRow[]" Name="rows" />
+              <Variable x:TypeArguments="x:String" Name="result" />
+              <Variable x:TypeArguments="x:String" Name="keiyakuNumber" />
+              <Variable x:TypeArguments="x:String" Name="buukenNumber" />
+              <Variable x:TypeArguments="sd:DataTable" Name="tempDataTable1" />
+              <Variable x:TypeArguments="x:Boolean" Name="tempFlag" />
+              <Variable x:TypeArguments="x:Boolean" Name="resultFlag" />
+              <Variable x:TypeArguments="sd:DataRow[]" Name="dataRows" />
+              <Variable x:TypeArguments="sd:DataTable" Name="selectDataTable" />
+              <Variable x:TypeArguments="ui:GenericValue" Name="record" />
+            </Sequence.Variables>
+            <uit:TerminalSetFieldAtPosition Column="8" DelayMS="300" DisplayName="&quot;ES&quot;を入力" sap2010:WorkflowViewState.IdRef="TerminalSetFieldAtPosition_19" Row="18" Text="ES" TimeoutMS="15000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_12" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <Delay Duration="00:00:02" sap2010:WorkflowViewState.IdRef="Delay_10" />
+            <ui:GetSecureCredential CredentialType="Generic" DisplayName="Get secure credential" sap2010:WorkflowViewState.IdRef="GetSecureCredential_5" Password="[password]" PersistanceType="Enterprise" Target="ESID" Username="[ssoid]" />
+            <uit:TerminalSetFieldAtPosition Column="23" DelayMS="300" DisplayName="ｼﾞｮﾌﾞNo." sap2010:WorkflowViewState.IdRef="TerminalSetFieldAtPosition_20" Row="21" Text="QA25" TimeoutMS="5000" WaitType="READY" />
+            <Sequence DisplayName="ｼｮｳｶｲｷｰ入力" sap2010:WorkflowViewState.IdRef="Sequence_57">
+              <uit:TerminalSetFieldAtPosition Column="41" DelayMS="300" DisplayName="ｼｮｳｶｲｷｰ" sap2010:WorkflowViewState.IdRef="TerminalSetFieldAtPosition_24" Row="21" Text="8605" TimeoutMS="5000" WaitType="READY" />
+            </Sequence>
+            <uit:TerminalSetFieldAtPosition Column="23" DelayMS="300" DisplayName="SSOID" sap2010:WorkflowViewState.IdRef="TerminalSetFieldAtPosition_25" Row="23" Text="[ssoid]" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalMoveCursor Column="23" DelayMS="300" DisplayName="Move Cursor" sap2010:WorkflowViewState.IdRef="TerminalMoveCursor_3" Row="25" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeysSecure DelayMS="300" DisplayName="PassWord入力" sap2010:WorkflowViewState.IdRef="TerminalSendKeysSecure_3" SecureText="[PassWord]" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_13" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <Delay Duration="00:00:02" sap2010:WorkflowViewState.IdRef="Delay_11" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_14" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_15" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+          </Sequence>
+        </ActivityAction>
+      </uit:TerminalSession.Body>
+    </uit:TerminalSession>
+    <uit:TerminalSession ContinueOnError="{x:Null}" ExistingConnection="{x:Null}" OutputConnection="{x:Null}" sap2010:Annotation.AnnotationText="Get ES Data" CloseConnection="True" ConnectionString="{}{'AttachExisting':false,'ConnectionType':2,'EhllBasicMode':false,'EhllDll':'C:\\Program Files (x86)\\Attachmate\\Reflection\\Hllapi32.dll','EhllEnhanced':false,'EhllFunction':'hllapi','EhllSession':'A','Host':null,'Mode':1,'Port':23,'Profile':'C:\\Program Files (x86)\\Attachmate\\R_IBM\\GECL_Online.rsf','ProviderType':4,'ShowTerminal':true,'TerminalType':0}" DelayMS="1000" DisplayName="Private: Terminal Session" sap2010:WorkflowViewState.IdRef="TerminalSession_5" TimeoutMS="50000">
+      <uit:TerminalSession.Body>
+        <ActivityAction x:TypeArguments="uit:TerminalConnection">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="uit:TerminalConnection" Name="terminalSession" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Terminal Session Do">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Int32" Name="Total" />
+              <Variable x:TypeArguments="x:Int32" Name="DisplayCount" />
+              <Variable x:TypeArguments="x:String" Name="Value" />
+            </Sequence.Variables>
+            <ui:LogMessage DisplayName="Log message" Level="Info" Message="【ESで契約No、物件No検索開始】" sap2010:WorkflowViewState.IdRef="LogMessage_18" />
+            <Flowchart>
+              <Flowchart.Variables>
+                <Variable x:TypeArguments="x:Double" Name="PageCount" />
+                <Variable x:TypeArguments="x:Int32" Default="16" Name="DisplayNumber" />
+              </Flowchart.Variables>
+              <Flowchart.StartNode>
+                <x:Reference>__ReferenceID3</x:Reference>
+              </Flowchart.StartNode>
+              <FlowStep x:Name="__ReferenceID3">
+                <Sequence DisplayName="総件数、While回数取得">
+                  <uit:TerminalGetTextAtPosition Column="14" DelayMS="300" DisplayName="Get Text at Position [ 総件数 ]" Length="4" Row="1" Text="[Value]" TimeoutMS="5000" WaitType="READY" sap2010:WorkflowViewState.IdRef="TerminalGetTextAtPosition_3" />
+                  <Assign DisplayName="データ総件数">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[Total]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[CInt(Value)]</InArgument>
+                    </Assign.Value>
+                    <sap2010:WorkflowViewState.IdRef>Assign_46</sap2010:WorkflowViewState.IdRef>
+                  </Assign>
+                  <Assign DisplayName="Page数">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Double">[PageCount]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Double">[Int(Total / DisplayNumber)]</InArgument>
+                    </Assign.Value>
+                    <sap2010:WorkflowViewState.IdRef>Assign_47</sap2010:WorkflowViewState.IdRef>
+                  </Assign>
+                  <uit:TerminalGetTextAtPosition Column="9" DelayMS="300" DisplayName="Get Text at Position [ 表示した件数 ]" Length="4" Row="1" Text="[Value]" TimeoutMS="5000" WaitType="READY" sap2010:WorkflowViewState.IdRef="TerminalGetTextAtPosition_4" />
+                  <Assign DisplayName="表示した件数">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[DisplayCount]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[CInt(Value)]</InArgument>
+                    </Assign.Value>
+                    <sap2010:WorkflowViewState.IdRef>Assign_48</sap2010:WorkflowViewState.IdRef>
+                  </Assign>
+                  <ui:LogMessage DisplayName="Log message" Level="Info" Message="[&quot;総件数：&quot;+Total.ToString + &quot; Page数：&quot; + CInt(Total / DisplayNumber).ToString]" sap2010:WorkflowViewState.IdRef="LogMessage_19" />
+                  <sap2010:WorkflowViewState.IdRef>Sequence_78</sap2010:WorkflowViewState.IdRef>
+                </Sequence>
+                <FlowStep.Next>
+                  <FlowStep x:Name="__ReferenceID0">
+                    <Sequence DisplayName="データ取得">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Int32" Name="Index" />
+                      </Sequence.Variables>
+                      <Assign>
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Int32">[Index]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Int32">7</InArgument>
+                        </Assign.Value>
+                        <sap2010:WorkflowViewState.IdRef>Assign_49</sap2010:WorkflowViewState.IdRef>
+                      </Assign>
+                      <While Condition="[Index &lt;= 37]">
+                        <TryCatch DisplayName="Try catch">
+                          <TryCatch.Try>
+                            <Sequence>
+                              <uit:TerminalGetTextAtPosition Column="2" DelayMS="300" DisplayName="Get Text at Position" Length="74" Row="[Index]" Text="[Value]" TimeoutMS="5000" WaitType="READY" sap2010:WorkflowViewState.IdRef="TerminalGetTextAtPosition_5" />
+                              <ui:LogMessage DisplayName="Log message" Level="Info" Message="[Value]" sap2010:WorkflowViewState.IdRef="LogMessage_20" />
+                              <Sequence DisplayName="Get">
+                                <Sequence.Variables>
+                                  <Variable x:TypeArguments="x:String" Name="LeftNumber" />
+                                  <Variable x:TypeArguments="x:String" Name="MidNumber" />
+                                  <Variable x:TypeArguments="x:String" Name="RightNumber" />
+                                  <Variable x:TypeArguments="x:String" Name="Progress" />
+                                  <Variable x:TypeArguments="x:String" Name="Number2" />
+                                  <Variable x:TypeArguments="x:String" Name="Number1" />
+                                </Sequence.Variables>
+                                <Assign DisplayName="Left 登録No">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[LeftNumber]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[Value.Substring(11,3).Trim]</InArgument>
+                                  </Assign.Value>
+                                  <sap2010:WorkflowViewState.IdRef>Assign_50</sap2010:WorkflowViewState.IdRef>
+                                </Assign>
+                                <Assign DisplayName="Mid 登録No">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[MidNumber]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[Value.Substring(15,1).Trim]</InArgument>
+                                  </Assign.Value>
+                                  <sap2010:WorkflowViewState.IdRef>Assign_51</sap2010:WorkflowViewState.IdRef>
+                                </Assign>
+                                <Assign DisplayName="Right 登録No">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[RightNumber]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[Value.Substring(17,4).Trim]</InArgument>
+                                  </Assign.Value>
+                                  <sap2010:WorkflowViewState.IdRef>Assign_52</sap2010:WorkflowViewState.IdRef>
+                                </Assign>
+                                <Assign DisplayName="契約No">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[Number1]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[Value.Substring(40,8).Trim]</InArgument>
+                                  </Assign.Value>
+                                  <sap2010:WorkflowViewState.IdRef>Assign_53</sap2010:WorkflowViewState.IdRef>
+                                </Assign>
+                                <Assign DisplayName="物件No">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[Number2]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[Value.Substring(49,3).Trim]</InArgument>
+                                  </Assign.Value>
+                                  <sap2010:WorkflowViewState.IdRef>Assign_54</sap2010:WorkflowViewState.IdRef>
+                                </Assign>
+                                <Assign DisplayName="進捗">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[Progress]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[Value.Substring(68,6).Trim]</InArgument>
+                                  </Assign.Value>
+                                  <sap2010:WorkflowViewState.IdRef>Assign_55</sap2010:WorkflowViewState.IdRef>
+                                </Assign>
+                                <ui:CommentOut DisplayName="Comment out">
+                                  <ui:CommentOut.Body>
+                                    <Sequence DisplayName="Ignored Activities">
+                                      <If sap2010:Annotation.AnnotationText="IF 検索条件がEmpty、Defaultですべてのデータをテーブルに追加して返す&#xA;IF 検索条件IsNotEmpty、合致したデータをテーブルに追加して返す" Condition="[String.IsNullOrEmpty(in_LeftNumber) AND String.IsNullOrEmpty(in_MidNumber) AND String.IsNullOrEmpty(in_RightNumber)]">
+                                        <If.Then>
+                                          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{LeftNumber, MidNumber, RightNumber, Number1, Number2, Progress}]" DataTable="[ESDataTable]" DisplayName="Add data row" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                                        </If.Then>
+                                        <If.Else>
+                                          <If Condition="[LeftNumber.Equals(in_LeftNumber) AND MidNumber.Equals(in_MidNumber) AND RightNumber.Equals(in_RightNumber) AND Progress.Equals(in_Progress)]">
+                                            <If.Then>
+                                              <Sequence>
+                                                <ui:LogMessage DisplayName="Log message" Level="Info" Message="[String.Join(&quot; ; &quot;,{LeftNumber, MidNumber, RightNumber, Progress, Number1, Number2})]" sap2010:WorkflowViewState.IdRef="LogMessage_21" />
+                                                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{LeftNumber, MidNumber, RightNumber, Number1, Number2, Progress}]" DataTable="[ESDataTable]" DisplayName="Add data row" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                                                <AddToCollection x:TypeArguments="x:String" Collection="[ContractList]" DisplayName="Add to collection" Item="[Number1+&quot;-&quot;+Number2]" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" />
+                                                <ui:CommentOut DisplayName="Comment out">
+                                                  <ui:CommentOut.Body>
+                                                    <Sequence DisplayName="Ignored Activities">
+                                                      <Assign>
+                                                        <Assign.To>
+                                                          <OutArgument x:TypeArguments="x:Int32">[Index]</OutArgument>
+                                                        </Assign.To>
+                                                        <Assign.Value>
+                                                          <InArgument x:TypeArguments="x:Int32">99</InArgument>
+                                                        </Assign.Value>
+                                                        <sap2010:WorkflowViewState.IdRef>Assign_56</sap2010:WorkflowViewState.IdRef>
+                                                      </Assign>
+                                                      <Assign>
+                                                        <Assign.To>
+                                                          <OutArgument x:TypeArguments="x:Double">[PageCount]</OutArgument>
+                                                        </Assign.To>
+                                                        <Assign.Value>
+                                                          <InArgument x:TypeArguments="x:Double">-99</InArgument>
+                                                        </Assign.Value>
+                                                        <sap2010:WorkflowViewState.IdRef>Assign_57</sap2010:WorkflowViewState.IdRef>
+                                                      </Assign>
+                                                      <sap2010:WorkflowViewState.IdRef>Sequence_79</sap2010:WorkflowViewState.IdRef>
+                                                    </Sequence>
+                                                  </ui:CommentOut.Body>
+                                                  <sap2010:WorkflowViewState.IdRef>CommentOut_1</sap2010:WorkflowViewState.IdRef>
+                                                </ui:CommentOut>
+                                                <sap2010:WorkflowViewState.IdRef>Sequence_80</sap2010:WorkflowViewState.IdRef>
+                                              </Sequence>
+                                            </If.Then>
+                                            <sap2010:WorkflowViewState.IdRef>If_18</sap2010:WorkflowViewState.IdRef>
+                                          </If>
+                                        </If.Else>
+                                        <sap2010:WorkflowViewState.IdRef>If_19</sap2010:WorkflowViewState.IdRef>
+                                      </If>
+                                      <sap2010:WorkflowViewState.IdRef>Sequence_81</sap2010:WorkflowViewState.IdRef>
+                                    </Sequence>
+                                  </ui:CommentOut.Body>
+                                  <sap2010:WorkflowViewState.IdRef>CommentOut_2</sap2010:WorkflowViewState.IdRef>
+                                </ui:CommentOut>
+                                <sap2010:WorkflowViewState.IdRef>Sequence_82</sap2010:WorkflowViewState.IdRef>
+                              </Sequence>
+                              <Assign>
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:Int32">[Index]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:Int32">[Index+2]</InArgument>
+                                </Assign.Value>
+                                <sap2010:WorkflowViewState.IdRef>Assign_58</sap2010:WorkflowViewState.IdRef>
+                              </Assign>
+                              <sap2010:WorkflowViewState.IdRef>Sequence_83</sap2010:WorkflowViewState.IdRef>
+                            </Sequence>
+                          </TryCatch.Try>
+                          <TryCatch.Catches>
+                            <Catch x:TypeArguments="s:Exception">
+                              <ActivityAction x:TypeArguments="s:Exception">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                </ActivityAction.Argument>
+                                <Sequence>
+                                  <ui:LogMessage DisplayName="Log message" Level="Warn" Message="[&quot;ES : &quot; + exception.Message + CHR(10) + &quot;At Source : &quot; + exception.Source]" sap2010:WorkflowViewState.IdRef="LogMessage_22" />
+                                  <ui:LogMessage DisplayName="Log message" Level="Info" Message="[Index.ToString]" sap2010:WorkflowViewState.IdRef="LogMessage_23" />
+                                  <Assign>
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Int32">[Index]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Int32">99</InArgument>
+                                    </Assign.Value>
+                                    <sap2010:WorkflowViewState.IdRef>Assign_59</sap2010:WorkflowViewState.IdRef>
+                                  </Assign>
+                                  <sap2010:WorkflowViewState.IdRef>Sequence_84</sap2010:WorkflowViewState.IdRef>
+                                </Sequence>
+                              </ActivityAction>
+                              <sap2010:WorkflowViewState.IdRef>Catch`1_2</sap2010:WorkflowViewState.IdRef>
+                            </Catch>
+                          </TryCatch.Catches>
+                          <sap2010:WorkflowViewState.IdRef>TryCatch_2</sap2010:WorkflowViewState.IdRef>
+                        </TryCatch>
+                        <sap2010:WorkflowViewState.IdRef>While_4</sap2010:WorkflowViewState.IdRef>
+                      </While>
+                      <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" Key="F1" TimeoutMS="5000" WaitType="READY" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_16" />
+                      <If sap2010:Annotation.AnnotationText="新ページに移動しましたか判断する" Condition="[DisplayCount+DisplayNumber &gt;= Total]">
+                        <If.Else>
+                          <Sequence>
+                            <ui:LogMessage DisplayName="Log message" Level="Info" Message="[&quot;現在Page：&quot;+(DisplayCount+16).ToString(&quot;0000&quot;)]" sap2010:WorkflowViewState.IdRef="LogMessage_24" />
+                            <uit:TerminalWaitTextAtPosition MatchCase="{x:Null}" Column="9" DelayMS="300" DisplayName="Wait Text at Position" Row="1" Text="[(DisplayCount+DisplayNumber).ToString(&quot;0000&quot;)]" TimeoutMS="30000" WaitType="COMPLETE" sap2010:WorkflowViewState.IdRef="TerminalWaitTextAtPosition_1" />
+                            <sap2010:WorkflowViewState.IdRef>Sequence_85</sap2010:WorkflowViewState.IdRef>
+                          </Sequence>
+                        </If.Else>
+                        <sap2010:WorkflowViewState.IdRef>If_20</sap2010:WorkflowViewState.IdRef>
+                      </If>
+                      <uit:TerminalGetTextAtPosition Column="9" DelayMS="300" DisplayName="Get Text at Position [ 表示した件数 ]" Length="4" Row="1" Text="[Value]" TimeoutMS="5000" WaitType="READY" sap2010:WorkflowViewState.IdRef="TerminalGetTextAtPosition_6" />
+                      <Assign DisplayName="表示した件数">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Int32">[DisplayCount]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Int32">[CInt(Value)]</InArgument>
+                        </Assign.Value>
+                        <sap2010:WorkflowViewState.IdRef>Assign_60</sap2010:WorkflowViewState.IdRef>
+                      </Assign>
+                      <Assign>
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Double">[PageCount]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Double">[PageCount-1]</InArgument>
+                        </Assign.Value>
+                        <sap2010:WorkflowViewState.IdRef>Assign_61</sap2010:WorkflowViewState.IdRef>
+                      </Assign>
+                      <sap2010:WorkflowViewState.IdRef>Sequence_86</sap2010:WorkflowViewState.IdRef>
+                    </Sequence>
+                    <FlowStep.Next>
+                      <FlowDecision x:Name="__ReferenceID1" Condition="[PageCount &gt;= 0]" DisplayName="Page" True="{x:Reference __ReferenceID0}">
+                        <FlowDecision.False>
+                          <FlowStep x:Name="__ReferenceID2">
+                            <ui:LogMessage DisplayName="Log message" Level="Info" Message="【ESで契約No、物件No検索終了】" sap2010:WorkflowViewState.IdRef="LogMessage_25" />
+                            <sap2010:WorkflowViewState.IdRef>FlowStep_1</sap2010:WorkflowViewState.IdRef>
+                          </FlowStep>
+                        </FlowDecision.False>
+                        <sap2010:WorkflowViewState.IdRef>FlowDecision_1</sap2010:WorkflowViewState.IdRef>
+                      </FlowDecision>
+                    </FlowStep.Next>
+                    <sap2010:WorkflowViewState.IdRef>FlowStep_2</sap2010:WorkflowViewState.IdRef>
+                  </FlowStep>
+                </FlowStep.Next>
+                <sap2010:WorkflowViewState.IdRef>FlowStep_3</sap2010:WorkflowViewState.IdRef>
+              </FlowStep>
+              <x:Reference>__ReferenceID0</x:Reference>
+              <x:Reference>__ReferenceID1</x:Reference>
+              <x:Reference>__ReferenceID2</x:Reference>
+              <sap2010:WorkflowViewState.IdRef>Flowchart_1</sap2010:WorkflowViewState.IdRef>
+            </Flowchart>
+            <sap2010:WorkflowViewState.IdRef>Sequence_87</sap2010:WorkflowViewState.IdRef>
+          </Sequence>
+        </ActivityAction>
+      </uit:TerminalSession.Body>
+    </uit:TerminalSession>
+    <sads:DebugSymbol.Symbol>d1VDOlxVc2Vyc1wxMjAwMDAzMzdcRG9jdW1lbnRzXFVpUGF0aFxmY19oZW5rb3VfdG91cm9rdXNob3J1aV9ORVdcR2V0X0VTX0RhdGFUYWJsZS54YW1stQF9A9wDDgIBAX4FiwEQAwHdAYwBBbYBGwMBngG3AQXaAxsCAQJ/B3/bAQMB4wGAAQeAAU4DAeEBgQEHigEYAwHeAYwBygGMAbUEAwHcAYwBvgSMAcQEAwHbAYwBqwWMAbIFAwHaAZIBC7MBFgMBnwG3AccBtwGyBAMBnQG3AbsEtwHBBAMBnAG3AagFtwGvBQMBmwG9AQvXAxYCAQN/bn+nAQMB5AGAAReAASEDAeIBgQGdAoEB6AIDAeABhwENhwGFAQMB3wGkAQ2kAd4BAwHUAaUBDaUBxgEDAdEBpgENpgFVAwHPAacBDacB8AEDAckBqAENqAHXAQMBwwGpAQ2rARgDAbwBrAENrAHXAQMBtQGtAQ2tAb0BAwGwAa4BDa4BxwEDAasBrwENrwHGAQMBqAGwAQ2wAVUDAaYBsQENsQHGAQMBowGyAQ2yAcYBAwGgAcMBDcMBkgEDAZkBxAEN1QMZAgEEpAGqAaQBrgEDAdkBpAFApAFFAwHYAaQBwwGkAcoBAwHXAaQBNKQBNwMB1gGkAbQBpAG4AQMB1QGlATGlATcDAdMBpQGsAaUBsgEDAdIBpgEdpgEnAwHQAacB1AGnAdoBAwHOAacB5AGnAe0BAwHMAacBowGnAa8BAwHKAagBogGoAaYBAwHIAagBQagBRgMBxwGoAb0BqAHDAQMBxgGoATSoATgDAcUBqAGsAagBsgEDAcQBqgEPqgHYAQMBvQGsAZ8BrAGjAQMBuwGsAUGsAUYDAboBrAG9AawBwwEDAbkBrAE0rAE4AwG4AawBqQGsAbIBAwG2Aa0BlAGtAZgBAwG0Aa0BOa0BPgMBswGtAaMBrQGpAQMBsgGtASytATADAbEBrgExrgE2AwGvAa4BrQGuAbMBAwGuAa4BlgGuAaIBAwGsAa8BMa8BNwMBqgGvAawBrwGyAQMBqQGwAR2wAScDAacBsQExsQE3AwGlAbEBrAGxAbIBAwGkAbIBMbIBNwMBogGyAawBsgGyAQMBoQHDAUvDAV8DAZoBxwE9xwFBAgEFzQER7QEcAgF18AEVwAMgAgEKwgNHwgNcAgEIxQMdxQOiAQIBBqoBowGqAacBAwHCAaoBQ6oBSAMBwQGqAb4BqgHEAQMBwAGqATaqAToDAb8BqgGtAaoBswEDAb4BzgETzgH7AQMBkQHPARPXARwDAYwB2AET4AEcAwGIAeEBE+EB/QEDAYAB4gET6gEcAgF76wET6wHkAQIBdvQBF/wBIAIBcf0BF6ADHwIBMaEDF6EDygECAS6iAxerAxwCAR2sAxesA4ECAgEVrQMXtQMgAgEQtgMXvgMgAgELxQNbxQNvAgEHzgGGAc4BiQEDAZgBzgFGzgFLAwGXAc4BowHOAakBAwGWAc4BOc4BPQMBlQHOAY8BzgGYAQMBkwHOAX7OAYEBAwGSAdQBPdQBSgMBjwHRAT7RAUUDAY0B3QE+3QFaAwGLAdoBP9oBSgMBiQHhAYgB4QGLAQMBhwHhAUXhAUoDAYYB4QGlAeEBqwEDAYUB4QE54QE8AwGEAeEBkQHhAZoBAwGCAeEBgAHhAYMBAwGBAecBPecBSgIBfuQBPuQBTAIBfOsBUesBsQECAXf5AUH5AUICAXT2AUL2AUkCAXL+ARmeAyQCATT9ASj9AToCATKhAzuhA0ECATChA3ShA3oCAS+iA1qiA4QBAgEepAMbqAMmAgEirAOMAawDjwECARysA0msA04CARusA6kBrAOvAQIBGqwDPawDQAIBGawDlQGsA54BAgEXrAOEAawDhwECARayA0GyA04CAROvA0KvA1ACARG7A0K7A08CAQ64A0O4A04CAQyAAh2DAygCAT+LAyGYAywCATWlAx2lA9IBAgErpgMdpgO/AgIBI4ECH4EChQICAWiCAh+CApkBAgFlgwIf+AIqAgFF+QIfgQMoAgFAjAMjjAP1AQIBPY0DI40DpgECATqOAyOWAywCATalA1ulA58BAgEspgOTAaYDlgECASqmA2WmA2oCASmmA+IBpgPpAQIBKKYDWaYDXAIBJ6YDnAGmA9cBAgEkgQKKAYECkwECAW+BAlGBAlYCAW6BAq0BgQKzAQIBbYECRYECSAIBbIECmQGBAqIBAgFqgQKBAYEChQECAWmCAl2CAmYCAWaMAiGUAioCAWCVAiGdAioCAVueAiGmAioCAVanAiGvAioCAVGwAiG4AioCAUy5AiHBAioCAUfCAiH2AjECAUb+Akn+AlICAUP7Akr7AlECAUGMA2GMA8IBAgE+jQNhjQNzAgE7kwNNkwNPAgE5kANOkANVAgE3kQJMkQJoAgFjjgJNjgJZAgFhmgJMmgJoAgFelwJNlwJYAgFcowJMowJoAgFZoAJNoAJaAgFXrAJMrAJoAgFUqQJNqQJWAgFStQJMtQJoAgFPsgJNsgJWAgFNvgJMvgJoAgFKuwJNuwJXAgFI</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="StartProcess_1" sap:VirtualizedContainerService.HintSize="414,87">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Delay_9" sap:VirtualizedContainerService.HintSize="414,22" />
+      <sap2010:ViewStateData Id="MaximizeWindow_3" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="414,168" />
+      <sap2010:ViewStateData Id="Sequence_76" sap:VirtualizedContainerService.HintSize="650,481">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalSetFieldAtPosition_19" sap:VirtualizedContainerService.HintSize="336,87" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_12" sap:VirtualizedContainerService.HintSize="336,64" />
+      <sap2010:ViewStateData Id="Delay_10" sap:VirtualizedContainerService.HintSize="336,22" />
+      <sap2010:ViewStateData Id="GetSecureCredential_5" sap:VirtualizedContainerService.HintSize="336,22" />
+      <sap2010:ViewStateData Id="TerminalSetFieldAtPosition_20" sap:VirtualizedContainerService.HintSize="336,87">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalSetFieldAtPosition_24" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_57" sap:VirtualizedContainerService.HintSize="336,211">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalSetFieldAtPosition_25" sap:VirtualizedContainerService.HintSize="336,87" />
+      <sap2010:ViewStateData Id="TerminalMoveCursor_3" sap:VirtualizedContainerService.HintSize="336,59" />
+      <sap2010:ViewStateData Id="TerminalSendKeysSecure_3" sap:VirtualizedContainerService.HintSize="336,22">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalSendControlKey_13" sap:VirtualizedContainerService.HintSize="336,64" />
+      <sap2010:ViewStateData Id="Delay_11" sap:VirtualizedContainerService.HintSize="336,22" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_14" sap:VirtualizedContainerService.HintSize="336,64" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_15" sap:VirtualizedContainerService.HintSize="336,64" />
+      <sap2010:ViewStateData Id="Sequence_58" sap:VirtualizedContainerService.HintSize="200,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalSession_7" sap:VirtualizedContainerService.HintSize="650,183">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_18" sap:VirtualizedContainerService.HintSize="614,97">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalGetTextAtPosition_3" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Assign_46" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_47" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="TerminalGetTextAtPosition_4" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Assign_48" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="LogMessage_19" sap:VirtualizedContainerService.HintSize="314,97" />
+      <sap2010:ViewStateData Id="Sequence_78" sap:VirtualizedContainerService.HintSize="200,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_49" sap:VirtualizedContainerService.HintSize="779,62" />
+      <sap2010:ViewStateData Id="TerminalGetTextAtPosition_5" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="LogMessage_20" sap:VirtualizedContainerService.HintSize="314,97" />
+      <sap2010:ViewStateData Id="Assign_50" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="Assign_51" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="Assign_52" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="Assign_53" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="Assign_54" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="Assign_55" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="AddDataRow_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="LogMessage_21" sap:VirtualizedContainerService.HintSize="314,97" />
+      <sap2010:ViewStateData Id="AddDataRow_2" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="AddToCollection`1_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Assign_56" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="Assign_57" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="Sequence_79" sap:VirtualizedContainerService.HintSize="200,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="314,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_80" sap:VirtualizedContainerService.HintSize="336,439">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_18" sap:VirtualizedContainerService.HintSize="466,595">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_19" sap:VirtualizedContainerService.HintSize="200,174">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_81" sap:VirtualizedContainerService.HintSize="200,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_2" sap:VirtualizedContainerService.HintSize="244,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_82" sap:VirtualizedContainerService.HintSize="314,790">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_58" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Sequence_83" sap:VirtualizedContainerService.HintSize="336,1280">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_22" sap:VirtualizedContainerService.HintSize="314,97" />
+      <sap2010:ViewStateData Id="LogMessage_23" sap:VirtualizedContainerService.HintSize="314,97" />
+      <sap2010:ViewStateData Id="Assign_59" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Sequence_84" sap:VirtualizedContainerService.HintSize="336,460">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_2" sap:VirtualizedContainerService.HintSize="404,24">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_2" sap:VirtualizedContainerService.HintSize="418,1522">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="While_4" sap:VirtualizedContainerService.HintSize="779,1688">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalSendControlKey_16" sap:VirtualizedContainerService.HintSize="779,64" />
+      <sap2010:ViewStateData Id="LogMessage_24" sap:VirtualizedContainerService.HintSize="314,97" />
+      <sap2010:ViewStateData Id="TerminalWaitTextAtPosition_1" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_85" sap:VirtualizedContainerService.HintSize="336,348">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_20" sap:VirtualizedContainerService.HintSize="779,534">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalGetTextAtPosition_6" sap:VirtualizedContainerService.HintSize="779,87" />
+      <sap2010:ViewStateData Id="Assign_60" sap:VirtualizedContainerService.HintSize="779,62" />
+      <sap2010:ViewStateData Id="Assign_61" sap:VirtualizedContainerService.HintSize="777,62" />
+      <sap2010:ViewStateData Id="Sequence_86" sap:VirtualizedContainerService.HintSize="200,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_25" sap:VirtualizedContainerService.HintSize="200,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">210,493</av:Point>
+            <av:Size x:Key="ShapeSize">200,54</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowDecision_1" sap:VirtualizedContainerService.HintSize="70,87">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">265,346.5</av:Point>
+            <av:Size x:Key="ShapeSize">70,87</av:Size>
+            <av:PointCollection x:Key="FalseConnector">335,390 440,390 440,520 410,520</av:PointCollection>
+            <av:PointCollection x:Key="TrueConnector">265,390 170,390 170,270 200,270</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">200,243</av:Point>
+            <av:Size x:Key="ShapeSize">200,54</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,297 300,346.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_3">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">200,127.5</av:Point>
+            <av:Size x:Key="ShapeSize">200,54</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,181.5 300,243</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="614,636">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+            <av:Size x:Key="ShapeSize">60,75</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,127.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_87" sap:VirtualizedContainerService.HintSize="636,897">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalSession_5" sap:VirtualizedContainerService.HintSize="650,1026">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_77" sap:VirtualizedContainerService.HintSize="672,1894">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Get_ES_DataTable_1" sap:VirtualizedContainerService.HintSize="712,2014" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

@@ -1,0 +1,236 @@
+Sub CellsNumberFormat()
+
+    Range("E:E").NumberFormatLocal = "@"
+    
+End Sub
+
+'範囲コピー
+Sub CopyRange()
+
+    Range("A:A,B:B,G:G").Copy
+    
+    With Workbooks.Open(Filename:="C:\Users\120000337\doc\新規 Microsoft Excel ワークシート.xlsx")
+    
+        With .Sheets("Sheet1")
+            
+            .Range("A:A").PasteSpecial Paste:=xlValues
+            
+        End With
+    
+    End With
+
+End Sub
+
+'セル幅自動調整
+Sub AutoColumnFit()
+
+        Dim index As Integer
+        
+        index = Cells(1, Columns.Count).End(xlToLeft).Column
+        Dim strAddr As String
+        Dim ColNumText As String
+        
+        strAddr = Cells(1, index).Address(False, False)
+        
+        ColNumText = Left(strAddr, Len(strAddr) - 1)
+        
+        Columns("A:" & ColNumText).EntireColumn.AutoFit
+
+End Sub
+
+Function ExcelEndRow1() As Long
+        Application.DisplayAlerts = False
+        Dim index As Long
+        
+        index = Cells(1, 1).End(xlDown).Row
+        
+        Debug.Print index
+        
+        ExcelEndRow = index
+        
+End Function
+
+Function ExcelEndRow2(strSheetName As String) As Long
+        Application.DisplayAlerts = False
+        Dim index As Long
+        
+        'strSheetName = "3.作業結果リスト"
+        
+        index = Sheets(strSheetName).Range("B1048576").End(xlUp).Row
+        
+        'Debug.Print index
+        
+        ExcelEndRow = index
+        
+End Function
+
+
+Sub SetFontColor()
+    
+    Range("A:B").Select
+    
+    
+    Dim i As Long
+    
+    For i = Selection.Row To Selection(Selection.Count).Row
+        
+        If (InStr(1, Cells(i, "A").Value, "新規") > 0) Then
+            
+            Cells(i, "A").Font.Color = RGB(150, 230, 200)
+            Cells(i, "B").Font.Color = RGB(150, 230, 200)
+            
+        End If
+
+    Next i
+    
+End Sub
+
+
+Sub SheetdDataMerge()
+'
+     ' 複数のシートからデータをコピーして、一つにまとめる
+'
+     Dim read_ws As Worksheet  'コピー元
+     Dim write_ws As Worksheet  'コピー先
+  
+     Set write_ws = Worksheets("Sheet1")
+    
+     With Workbooks.Open(fileName:="abc.xlsx", UpdateLinks:=0)
+	ActiveWorkbook.UpdateLinks = xlUpdateLinksNever
+	Application.DisplayAlerts = False
+		
+	For Each read_ws In .Worksheets
+         	If read_ws.Name <> write_ws.Name Then
+            	With read_ws.UsedRange
+            
+              		If .Rows.Count > 1 Then
+                		.Offset(0, 0).Resize(.Rows.Count).Copy Destination:=write_ws.Cells(Rows.Count, 1).End(xlUp).Offset(4, 5)
+              		End If
+              
+            	End With
+         	End If
+     	Next read_ws
+				
+        .Save
+        .Close
+     End With       
+
+End Sub
+
+
+Sub LinksUpdate()
+
+	'ActiveWorkbook.UpdateLinks = xlUpdateLinksNever
+	ActiveWorkbook.UpdateLinks = xlUpdateLinksAlways
+	'Application.DisplayAlerts = False
+
+End Sub
+
+Sub AlertsDisplayAndUpdateLinksUserSetting()
+
+	ActiveWorkbook.UpdateLinks = xlUpdateLinksUserSetting
+	Application.DisplayAlerts = True
+
+End Sub
+
+'RegexMatch
+Function RegexMatch(str As String, str_pattern As String, ignCase As Boolean, glo As Boolean)
+    
+    'RegExpオブジェクトの作成
+    Dim reg As Object
+    Set reg = CreateObject("VBScript.RegExp")
+ 
+    '正規表現の指定
+    With reg
+        .pattern = str_pattern       	'パターンを指定
+        .ignoreCase = ignCase 		'大文字と小文字を区別するか(False)、しないか(True)
+        .Global = glo           	'文字列全体を検索するか(True)、しないか(False)
+    End With
+                
+    Dim Matches
+    Set Matches = reg.Execute(str)
+                
+    For Each Match In Matches
+        RegexMatch = Match.Value
+    Next Match
+               
+End Function
+
+'文字列の挿入
+Public Function Insert(ByVal sTarget As String, ByVal index As Integer, ByVal sValue As String) As String
+    Insert = Left(sTarget, index) & sValue & Mid(sTarget, index + 1)
+End Function
+
+'配列要素の結合
+Function StrJoin(arr() As Variant)
+    Dim str As String
+    For Each Var In arr
+            str = str & Var
+        Next Var
+        StrJoin = str
+End Function
+
+
+Sub Clear(sheetName As String, startCell As String)
+	
+	Sheets(sheetName).Range(startCell, Range(startCell).SpecialCells(xlLastCell)).ClearContents
+	
+End Sub
+
+
+Sub SheetRename(sheetName As String, newSheetName As String)
+
+	Sheets(sheetName).Name = newSheetName
+
+End Sub
+
+
+Function Refresh()
+	Declare Sub Sleep Lib "kernel32" (ByVal ms As Long)
+	With Worksheets(1).QueryTables(1)
+		.Refresh BackgroundQuery := False
+	End With
+	Sleep 2000
+	Thisworkbook.Save
+	Refresh = Cells(Rows.Count, 1).End(xlUp).Row - 2
+End Function
+
+
+Sub Main()
+	Dim ws As Worksheet
+	
+	For Each ws In Worksheets
+		ws.Range("A6", "BZ1048576").WrapText = False
+	Next ws
+	
+End Sub
+
+
+Sub Main(sheet_name As String, index As Integer)
+	
+	If CheckSheet(sheet_name) = False Then
+		Worksheets.Add after:=Worksheets(Worksheets.Count)
+    	ActiveSheet.Name = sheet_name
+    End If
+    If CheckSheet("Sheet1") Then
+    	Application.DisplayAlerts = False
+    	Worksheets("Sheet1").Delete
+    	Application.DisplayAlerts = True
+    End If
+    Sheets(sheet_name).Columns(index).NumberFormatLocal = "@"
+    
+End Sub
+
+Function CheckSheet(pName As String) As Boolean
+
+	Dim IsExist As Boolean
+	IsExist = False
+	For i = 1 To Application.ActiveWorkbook.Sheets.Count
+    	If Application.ActiveWorkbook.Sheets(i).Name = pName Then
+        	IsExist = True
+        	Exit For
+    	End If
+	Next
+	CheckSheet = IsExist
+	
+End Function
