@@ -1,0 +1,50 @@
+Sub Finder_Get_Query(iqyFile As String)
+    'Edit path to .iqy file, if necessary.
+    
+    Dim wb As Workbook
+    Dim wbFile As String
+    
+    'iqyFile = "\\cidpwuip02.blue.smflc.co.jp\UiPath\99.個人用\王\Downloads\JJquery.iqy"
+    
+    
+    Application.DisplayAlerts = False
+    'Create New Workbook
+    Set wb = ThisWorkbook
+    
+    wb.ActiveSheet.UsedRange.Clear
+    
+    With wb.ActiveSheet.QueryTables.Add(Connection:="FINDER;" & iqyFile, Destination:=Range("A1"))
+
+        .BackgroundQuery = True
+        .Refresh BackgroundQuery:=False
+        .RefreshPeriod = 0
+        .RefreshOnFileOpen = False
+
+    End With
+    
+    '文字折り返して表示設定解除
+    wb.ActiveSheet.UsedRange.WrapText = False
+    
+    'ブックの中にあるリンク
+    vntLink = wb.LinkSources(xlLinkTypeExcelLinks) 
+    If IsArray(vntLink) Then
+        For i = 1 To UBound(vntLink)
+            wb.BreakLink vntLink(i), xlLinkTypeExcelLinks 'リンク解除
+        Next i
+    End If
+    
+    'コンテンツの有効化を出ないように、Connectionを削除します。
+    Do While wb.Connections.Count > 0
+    	wb.Connections.Item(wb.Connections.Count).Delete
+    Loop
+    
+    For Each qr In wb.Queries
+        qr.Delete
+    Next qr
+    
+    wb.Save
+    Application.DisplayAlerts = True
+    
+End Sub
+
+

@@ -1,0 +1,207 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="SubsetSum" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="SubsetSum_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="SubsetSum" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="scg:List(scg:List(x:Int32))" Name="List" />
+      <Variable x:TypeArguments="s:Func(x:String, s:DateTime)" Name="EngToJpn" />
+      <Variable x:TypeArguments="s:Func(x:Int32, x:Int32, x:Int32)" Name="variable1" />
+    </Sequence.Variables>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:Func(x:Int32, x:Int32, x:Int32)">[variable1]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:Func(x:Int32, x:Int32, x:Int32)">[Function(num1, num2) num1 + num2]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[variable1(1,2).toString]" />
+    <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[{0,110,220,330,440,550,660,770,880,990}]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:Int32">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Int32" Name="item" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_5">
+            <ui:InvokeCode ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText=" n 个元素和为 m 的集合" Code="'结果集合&#xA;Dim resultList As System.Collections.Generic.List(Of List(Of int32)) = New System.Collections.Generic.List(Of List(Of int32))&#xA;Dim numList As System.Collections.Generic.List(Of int32) = New System.Collections.Generic.List(Of int32)&#xA;'临时存储结果集合&#xA;Dim list As System.Collections.Generic.List(Of int32) = New System.Collections.Generic.List(Of int32)&#xA;&#xA;numList.AddRange({33080,184657,248210,322000,16500,28809,73150,73150,73150,73150,73150,73150,73150,2184})&#xA;&#xA;Dim item As Integer&#xA;Dim result As Integer = in_Sum&#xA;Dim index As System.Collections.Generic.List(Of int32) = New System.Collections.Generic.List(Of int32)&#xA;&#xA;'Msgbox(&quot;list长度：&quot; &amp; numList.Count)&#xA;&#xA;'''回溯法，递归查找所有和为 result 的子集&#xA;Dim SubsetSum As Func(Of List(Of Integer), Integer, Integer, Integer, Object) = Function(ByVal lst As List(Of int32),ByVal start As Integer ,ByVal len As Integer, ByVal sum As Integer) As Object&#xA; &#xA; '临时存储差&#xA; Dim num As Integer&#xA; Dim i As Integer&#xA; &#xA; 'MsgBox(&quot;sum :&quot; &amp; sum &amp; &quot; start:&quot; &amp; start &amp; &quot; len：&quot; &amp; len)&#xA;&#xA; &#xA; If sum &lt; 0 Then&#xA;   Return 0&#xA; ElseIf sum = 0 Then&#xA;   'MsgBox(&quot;= 0 :&quot; &amp; sum)&#xA;   resultList.Add(New List(Of Integer)(lst))&#xA; Else&#xA; For i = start To len Step 1&#xA;  'MsgBox(&quot;index:&quot; &amp; i &amp; &quot;  value:&quot; &amp; numList(i) &amp; &quot;  sum:&quot; &amp; sum &amp; &quot;-&quot; &amp; numList(i) &amp; &quot;=&quot; &amp; sum-numList(i))&#xA;  num = sum - numList(i)&#xA;  If num &gt;= 0 Then&#xA;   lst.Add(i)&#xA;   Call SubsetSum(lst, i+1, len, num)&#xA;   'MsgBox(&quot;删除下标：&quot; &amp; lst.count &amp; &quot;删除元素：&quot; &amp; lst(lst.count-1))&#xA;   lst.RemoveAt(lst.Count-1)&#xA;  Else&#xA;   '如果从小到大排序，当结果小于0时，退出循环，返回&#xA;   'Exit For &#xA;   'Return 0&#xA;  End If&#xA; Next&#xA; End If&#xA; &#xA;End Function&#xA;&#xA;'''list: 存储结果集&#xA;''' start：检索开始索引&#xA;''' len：数组长度&#xA;'''sum：总和&#xA;''' &#xA;Call SubsetSum(list,0,numList.Count-1,result)&#xA;&#xA;out_ResultList = resultList&#xA;&#xA;&#xA;" DisplayName="Invoke Code" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+              <ui:InvokeCode.Arguments>
+                <OutArgument x:TypeArguments="scg:List(scg:List(x:Int32))" x:Key="out_ResultList">[List]</OutArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_Sum">[907600+item]</InArgument>
+              </ui:InvokeCode.Arguments>
+            </ui:InvokeCode>
+            <ui:ForEach x:TypeArguments="scg:List(x:Int32)" CurrentIndex="{x:Null}" DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[List]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="scg:List(x:Int32)">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="scg:List(x:Int32)" Name="item" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                    <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[String.Join(&quot;,&quot;, item)]" />
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEach.Body>
+            </ui:ForEach>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <ui:InvokeCode ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText=" n 个元素和为 m 的集合" Code="'结果集合&#xA;Dim resultList As System.Collections.Generic.List(Of List(Of int32)) = New System.Collections.Generic.List(Of List(Of int32))&#xA;Dim numList As System.Collections.Generic.List(Of int32) = New System.Collections.Generic.List(Of int32)&#xA;'临时存储结果集合&#xA;Dim list As System.Collections.Generic.List(Of int32) = New System.Collections.Generic.List(Of int32)&#xA;&#xA;numList.AddRange({1,2,4,3,5,6,7,8,9,10})&#xA;&#xA;Dim item As Integer&#xA;Dim result As Integer = 20&#xA;Dim index As System.Collections.Generic.List(Of int32) = New System.Collections.Generic.List(Of int32)&#xA;&#xA;'Msgbox(&quot;list长度：&quot; &amp; numList.Count)&#xA;&#xA;'''回溯法，递归查找所有和为 result 的子集&#xA;Dim SubsetSum As Func(Of List(Of Integer), Integer, Integer, Integer, Object) = Function(ByVal lst As List(Of int32),ByVal start As Integer ,ByVal len As Integer, ByVal sum As Integer) As Object&#xA; &#xA; '临时存储差&#xA; Dim num As Integer&#xA; Dim i As Integer&#xA; &#xA; 'MsgBox(&quot;sum :&quot; &amp; sum &amp; &quot; start:&quot; &amp; start &amp; &quot; len：&quot; &amp; len)&#xA;&#xA; &#xA; If sum &lt; 0 Then&#xA;   Return 0&#xA; ElseIf sum = 0 Then&#xA;   'MsgBox(&quot;= 0 :&quot; &amp; sum)&#xA;   resultList.Add(New List(Of Integer)(lst))&#xA; Else&#xA; For i = start To len Step 1&#xA;  'MsgBox(&quot;index:&quot; &amp; i &amp; &quot;  value:&quot; &amp; numList(i) &amp; &quot;  sum:&quot; &amp; sum &amp; &quot;-&quot; &amp; numList(i) &amp; &quot;=&quot; &amp; sum-numList(i))&#xA;  num = sum - numList(i)&#xA;  If num &gt;= 0 Then&#xA;   lst.Add(numList(i))&#xA;   Call SubsetSum(lst, i+1, len, num)&#xA;   'MsgBox(&quot;删除下标：&quot; &amp; lst.count &amp; &quot;删除元素：&quot; &amp; lst(lst.count-1))&#xA;   lst.RemoveAt(lst.Count-1)&#xA;  Else&#xA;   '如果从小到大排序，当结果小于0时，退出循环，返回&#xA;   Exit For &#xA;   'Return 0&#xA;  End If&#xA; Next&#xA; End If&#xA; &#xA;End Function&#xA;&#xA;'''list: 存储结果集&#xA;''' start：检索开始索引&#xA;''' len：数组长度&#xA;'''sum：总和&#xA;''' &#xA;Call SubsetSum(list,0,numList.Count-1,result)&#xA;&#xA;out_ResultList = resultList&#xA;&#xA;&#xA;" DisplayName="Invoke Code" sap2010:WorkflowViewState.IdRef="InvokeCode_3">
+      <ui:InvokeCode.Arguments>
+        <OutArgument x:TypeArguments="scg:List(scg:List(x:Int32))" x:Key="out_ResultList">[List]</OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <ui:ForEach x:TypeArguments="scg:List(x:Int32)" CurrentIndex="{x:Null}" DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[List]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="scg:List(x:Int32)">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="scg:List(x:Int32)" Name="item" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[String.Join(&quot;,&quot;, item)]" />
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="&#xA;&#xA;Dim arr_result As System.Collections.Generic.List(Of int32)&#xA;arr_result = New System.Collections.Generic.List(Of int32)&#xA;Dim index As Integer&#xA;&#xA;Dim arr_num() As Integer = {2,4,5,6,7}&#xA;Dim result As Integer&#xA;Dim arr_len As Integer&#xA;&#xA;Dim SubsetSum As Func(Of Integer(), Integer, Integer,Integer, Integer) = Function(ByVal arr() As Integer,ByVal n As Integer ,ByVal len As Integer, ByVal sum As Integer) As Integer&#xA; Dim num As Integer&#xA; Dim i,j As Integer&#xA; Dim ret As Boolean&#xA; &#xA; MsgBox(&quot;result:&quot; &amp; sum)&#xA; &#xA; If sum &lt; 0 Then&#xA;  Return sum&#xA; End If&#xA; &#xA; If n = len Then&#xA;  Return num&#xA; End If&#xA; &#xA; If sum = 0 Then&#xA;  MsgBox(&quot;= 0 :&quot; &amp; sum)&#xA;  Return sum&#xA; End If&#xA; &#xA; ret = False&#xA; i = n&#xA; 'For i = n To len Step 1&#xA;  MsgBox(&quot;index:&quot; &amp; i &amp; &quot;  value:&quot; &amp; arr(i))&#xA;  If sum - arr(i) &gt;= 0 Then&#xA;   MsgBox(&quot;index:&quot; &amp; i &amp; &quot;  value:&quot; &amp; arr(i))&#xA;   arr_result.Add(arr(i))&#xA;   Call SubsetSum(arr, i+1, len - 1, sum - arr(i))&#xA;   ret = True&#xA;  End If&#xA; 'Next&#xA; &#xA; If ret =False Then&#xA;  MsgBox(&quot;No Answer&quot;)&#xA; End If &#xA; &#xA; &#xA;End Function&#xA;&#xA;Msgbox(arr_num.Length)&#xA;arr_len = Ubound(arr_num)&#xA;result = 10&#xA;&#xA;Call SubsetSum(arr_num,0,arr_len,result)&#xA;&#xA;For Each index In arr_result&#xA; Msgbox(index)&#xA;Next&#xA;&#xA;&#xA;" DisplayName="Invoke Code" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+      <ui:InvokeCode.Arguments>
+        <scg:Dictionary x:TypeArguments="x:String, Argument" />
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <sads:DebugSymbol.Symbol>dz5DOlxVc2Vyc1wxMjAwMDAzMzdcRG9jdW1lbnRzXFVpUGF0aFxUZXN0UHJvY2Vzc1xTdWJzZXRTdW0ueGFtbBk9A4ABDgIBAUMFSg4CAR9LBUt6AgEcTAVoEgIBDWkFbRUCAQpuBXkSAgEDegV+FQIBAkhJSGsCASJFSkVVAgEgS1xLdwIBHUyPAUy6AQIBG1ILZRYCAQ5rW2thAgELbpkBbqEBAgEIdAt2FgIBBFMNWB0CARZZDWQaAgEPdQ11iwECAQVVY1VpAgEZVkZWUwIBF1mhAVmpAQIBFF8TYR4CARB1ZHWIAQIBBmAVYJMBAgERYGxgkAECARI=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="352,62" />
+      <sap2010:ViewStateData Id="WriteLine_4" sap:VirtualizedContainerService.HintSize="352,64" />
+      <sap2010:ViewStateData Id="InvokeCode_2" sap:VirtualizedContainerService.HintSize="314,194">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="215,64" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="237,188">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="314,327">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336,685">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_4" sap:VirtualizedContainerService.HintSize="352,824">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeCode_3" sap:VirtualizedContainerService.HintSize="352,194">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="215,64" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="237,188">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="352,54">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeCode_1" sap:VirtualizedContainerService.HintSize="352,164" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="374,1686">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SubsetSum_1" sap:VirtualizedContainerService.HintSize="414,1766" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

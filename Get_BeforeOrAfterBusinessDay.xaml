@@ -144,7 +144,7 @@
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="Get Before Or After BusinessDay" sap2010:WorkflowViewState.IdRef="Sequence_6">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Default="休日表\Holidays-V1.xlsx" Name="HolidaysFileName" />
+      <Variable x:TypeArguments="x:String" Default="\\scflsrvr\フリートサービス営業統括本部\営業企画本部_308001461\Fleet Solution_New\他部署共有_Temp\RPA\開発\休日表\Holidays-V1.xlsx" Name="HolidaysFileName" />
       <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="HolidaysTable" />
       <Variable x:TypeArguments="s:DateTime" Name="DateTime" />
       <Variable x:TypeArguments="scg:List(s:DateTime)" Default="[New List(Of DateTime)]" Name="HolidaysList" />
@@ -183,163 +183,179 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
             </ActivityAction.Argument>
-            <ui:ExcelReadRange AddHeaders="False" DataTable="[HolidaysTable]" DisplayName="Read Range" sap2010:WorkflowViewState.IdRef="ExcelReadRange_2" SheetName="[Now.Year.ToString]">
-              <ui:ExcelReadRange.Range>
-                <InArgument x:TypeArguments="x:String">
-                  <Literal x:TypeArguments="x:String" Value="" />
-                </InArgument>
-              </ui:ExcelReadRange.Range>
-            </ui:ExcelReadRange>
+            <Flowchart>
+              <Flowchart.StartNode>
+                <FlowStep x:Name="__ReferenceID0">
+                  <Sequence>
+                    <ui:ExcelReadRange AddHeaders="False" DataTable="[HolidaysTable]" DisplayName="Read Range" SheetName="[DateTime.Year.ToString]">
+                      <ui:ExcelReadRange.Range>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </ui:ExcelReadRange.Range>
+                      <sap2010:WorkflowViewState.IdRef>ExcelReadRange_4</sap2010:WorkflowViewState.IdRef>
+                    </ui:ExcelReadRange>
+                    <Assign>
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="scg:List(s:DateTime)">[HolidaysList]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="scg:List(s:DateTime)">[(From row In HolidaysTable.AsEnumerable Select Convert.ToDateTime(row(0))).ToList]</InArgument>
+                      </Assign.Value>
+                      <sap2010:WorkflowViewState.IdRef>Assign_15</sap2010:WorkflowViewState.IdRef>
+                    </Assign>
+                    <ExistsInCollection x:TypeArguments="s:DateTime" Collection="[HolidaysList]" DisplayName="Exists in collection" Item="[DateTime]" Result="[RetFlg]" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_6" />
+                    <sap2010:WorkflowViewState.IdRef>Sequence_10</sap2010:WorkflowViewState.IdRef>
+                  </Sequence>
+                  <FlowStep.Next>
+                    <FlowDecision x:Name="__ReferenceID2" Condition="[RetFlg]">
+                      <FlowDecision.True>
+                        <FlowDecision x:Name="__ReferenceID1" Condition="[number &lt; 0]" DisplayName="- Or +">
+                          <FlowDecision.True>
+                            <FlowStep x:Name="__ReferenceID4">
+                              <Assign>
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="s:DateTime">[DateTime]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="s:DateTime">[DateTime.AddDays(-1)]</InArgument>
+                                </Assign.Value>
+                                <sap2010:WorkflowViewState.IdRef>Assign_16</sap2010:WorkflowViewState.IdRef>
+                              </Assign>
+                              <FlowStep.Next>
+                                <x:Reference>__ReferenceID0</x:Reference>
+                              </FlowStep.Next>
+                              <sap2010:WorkflowViewState.IdRef>FlowStep_9</sap2010:WorkflowViewState.IdRef>
+                            </FlowStep>
+                          </FlowDecision.True>
+                          <FlowDecision.False>
+                            <FlowStep x:Name="__ReferenceID6">
+                              <Assign>
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="s:DateTime">[DateTime]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="s:DateTime">[DateTime.AddDays(+1)]</InArgument>
+                                </Assign.Value>
+                                <sap2010:WorkflowViewState.IdRef>Assign_17</sap2010:WorkflowViewState.IdRef>
+                              </Assign>
+                              <FlowStep.Next>
+                                <x:Reference>__ReferenceID0</x:Reference>
+                              </FlowStep.Next>
+                              <sap2010:WorkflowViewState.IdRef>FlowStep_10</sap2010:WorkflowViewState.IdRef>
+                            </FlowStep>
+                          </FlowDecision.False>
+                          <sap2010:WorkflowViewState.IdRef>FlowDecision_5</sap2010:WorkflowViewState.IdRef>
+                        </FlowDecision>
+                      </FlowDecision.True>
+                      <FlowDecision.False>
+                        <FlowDecision x:Name="__ReferenceID3" Condition="[DateTime.ToString(&quot;ddd&quot;).Equals(&quot;Sat&quot;) OR DateTime.ToString(&quot;ddd&quot;).Equals(&quot;Sun&quot;)]" DisplayName="SatOrSun" True="{x:Reference __ReferenceID1}">
+                          <FlowDecision.False>
+                            <FlowStep x:Name="__ReferenceID8">
+                              <Assign>
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="s:DateTime">[out_ResultDateTime]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="s:DateTime">[DateTime]</InArgument>
+                                </Assign.Value>
+                                <sap2010:WorkflowViewState.IdRef>Assign_18</sap2010:WorkflowViewState.IdRef>
+                              </Assign>
+                              <FlowStep.Next>
+                                <FlowDecision x:Name="__ReferenceID7" Condition="[in_BeforeOrAfterDay &gt; 0]" DisplayName="in_BeforeOrAfterDay">
+                                  <FlowDecision.True>
+                                    <FlowStep x:Name="__ReferenceID5">
+                                      <Assign>
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:Int32">[in_BeforeOrAfterDay]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:Int32">[in_BeforeOrAfterDay-1]</InArgument>
+                                        </Assign.Value>
+                                        <sap2010:WorkflowViewState.IdRef>Assign_19</sap2010:WorkflowViewState.IdRef>
+                                      </Assign>
+                                      <FlowStep.Next>
+                                        <x:Reference>__ReferenceID1</x:Reference>
+                                      </FlowStep.Next>
+                                      <sap2010:WorkflowViewState.IdRef>FlowStep_11</sap2010:WorkflowViewState.IdRef>
+                                    </FlowStep>
+                                  </FlowDecision.True>
+                                  <sap2010:WorkflowViewState.IdRef>FlowDecision_6</sap2010:WorkflowViewState.IdRef>
+                                </FlowDecision>
+                              </FlowStep.Next>
+                              <sap2010:WorkflowViewState.IdRef>FlowStep_12</sap2010:WorkflowViewState.IdRef>
+                            </FlowStep>
+                          </FlowDecision.False>
+                          <sap2010:WorkflowViewState.IdRef>FlowDecision_7</sap2010:WorkflowViewState.IdRef>
+                        </FlowDecision>
+                      </FlowDecision.False>
+                      <sap2010:WorkflowViewState.IdRef>FlowDecision_8</sap2010:WorkflowViewState.IdRef>
+                    </FlowDecision>
+                  </FlowStep.Next>
+                  <sap2010:WorkflowViewState.IdRef>FlowStep_13</sap2010:WorkflowViewState.IdRef>
+                </FlowStep>
+              </Flowchart.StartNode>
+              <x:Reference>__ReferenceID2</x:Reference>
+              <x:Reference>__ReferenceID3</x:Reference>
+              <x:Reference>__ReferenceID4</x:Reference>
+              <x:Reference>__ReferenceID5</x:Reference>
+              <x:Reference>__ReferenceID1</x:Reference>
+              <x:Reference>__ReferenceID6</x:Reference>
+              <x:Reference>__ReferenceID7</x:Reference>
+              <x:Reference>__ReferenceID8</x:Reference>
+              <x:Reference>__ReferenceID0</x:Reference>
+              <sap2010:WorkflowViewState.IdRef>Flowchart_2</sap2010:WorkflowViewState.IdRef>
+            </Flowchart>
           </ActivityAction>
         </ui:ExcelApplicationScope.Body>
       </ui:ExcelApplicationScope>
-      <Assign sap2010:WorkflowViewState.IdRef="Assign_8">
-        <Assign.To>
-          <OutArgument x:TypeArguments="scg:List(s:DateTime)">[HolidaysList]</OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="scg:List(s:DateTime)">[(From row In HolidaysTable.AsEnumerable Select Convert.ToDateTime(row(0))).ToList]</InArgument>
-        </Assign.Value>
-      </Assign>
     </Sequence>
-    <Flowchart sap2010:WorkflowViewState.IdRef="Flowchart_1">
-      <Flowchart.StartNode>
-        <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_1">
-          <ExistsInCollection x:TypeArguments="s:DateTime" Collection="[HolidaysList]" DisplayName="Exists in collection" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_4" Item="[DateTime]" Result="[RetFlg]" />
-          <FlowStep.Next>
-            <FlowDecision x:Name="__ReferenceID2" Condition="[RetFlg]" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
-              <FlowDecision.True>
-                <FlowDecision x:Name="__ReferenceID1" Condition="[number &lt; 0]" DisplayName="- Or +" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
-                  <FlowDecision.True>
-                    <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_4">
-                      <Assign sap2010:WorkflowViewState.IdRef="Assign_6">
-                        <Assign.To>
-                          <OutArgument x:TypeArguments="s:DateTime">[DateTime]</OutArgument>
-                        </Assign.To>
-                        <Assign.Value>
-                          <InArgument x:TypeArguments="s:DateTime">[DateTime.AddDays(-1)]</InArgument>
-                        </Assign.Value>
-                      </Assign>
-                      <FlowStep.Next>
-                        <x:Reference>__ReferenceID0</x:Reference>
-                      </FlowStep.Next>
-                    </FlowStep>
-                  </FlowDecision.True>
-                  <FlowDecision.False>
-                    <FlowStep x:Name="__ReferenceID6" sap2010:WorkflowViewState.IdRef="FlowStep_6">
-                      <Assign sap2010:WorkflowViewState.IdRef="Assign_10">
-                        <Assign.To>
-                          <OutArgument x:TypeArguments="s:DateTime">[DateTime]</OutArgument>
-                        </Assign.To>
-                        <Assign.Value>
-                          <InArgument x:TypeArguments="s:DateTime">[DateTime.AddDays(+1)]</InArgument>
-                        </Assign.Value>
-                      </Assign>
-                      <FlowStep.Next>
-                        <x:Reference>__ReferenceID0</x:Reference>
-                      </FlowStep.Next>
-                    </FlowStep>
-                  </FlowDecision.False>
-                </FlowDecision>
-              </FlowDecision.True>
-              <FlowDecision.False>
-                <FlowDecision x:Name="__ReferenceID3" Condition="[DateTime.ToString(&quot;ddd&quot;).Equals(&quot;Sat&quot;) OR DateTime.ToString(&quot;ddd&quot;).Equals(&quot;Sun&quot;)]" DisplayName="SatOrSun" sap2010:WorkflowViewState.IdRef="FlowDecision_2" True="{x:Reference __ReferenceID1}">
-                  <FlowDecision.False>
-                    <FlowStep x:Name="__ReferenceID8" sap2010:WorkflowViewState.IdRef="FlowStep_7">
-                      <Assign sap2010:WorkflowViewState.IdRef="Assign_13">
-                        <Assign.To>
-                          <OutArgument x:TypeArguments="s:DateTime">[out_ResultDateTime]</OutArgument>
-                        </Assign.To>
-                        <Assign.Value>
-                          <InArgument x:TypeArguments="s:DateTime">[DateTime]</InArgument>
-                        </Assign.Value>
-                      </Assign>
-                      <FlowStep.Next>
-                        <FlowDecision x:Name="__ReferenceID7" Condition="[in_BeforeOrAfterDay &gt; 0]" DisplayName="in_BeforeOrAfterDay" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
-                          <FlowDecision.True>
-                            <FlowStep x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowStep_5">
-                              <Assign sap2010:WorkflowViewState.IdRef="Assign_9">
-                                <Assign.To>
-                                  <OutArgument x:TypeArguments="x:Int32">[in_BeforeOrAfterDay]</OutArgument>
-                                </Assign.To>
-                                <Assign.Value>
-                                  <InArgument x:TypeArguments="x:Int32">[in_BeforeOrAfterDay-1]</InArgument>
-                                </Assign.Value>
-                              </Assign>
-                              <FlowStep.Next>
-                                <x:Reference>__ReferenceID1</x:Reference>
-                              </FlowStep.Next>
-                            </FlowStep>
-                          </FlowDecision.True>
-                        </FlowDecision>
-                      </FlowStep.Next>
-                    </FlowStep>
-                  </FlowDecision.False>
-                </FlowDecision>
-              </FlowDecision.False>
-            </FlowDecision>
-          </FlowStep.Next>
-        </FlowStep>
-      </Flowchart.StartNode>
-      <x:Reference>__ReferenceID0</x:Reference>
-      <x:Reference>__ReferenceID2</x:Reference>
-      <x:Reference>__ReferenceID3</x:Reference>
-      <x:Reference>__ReferenceID4</x:Reference>
-      <x:Reference>__ReferenceID5</x:Reference>
-      <x:Reference>__ReferenceID1</x:Reference>
-      <x:Reference>__ReferenceID6</x:Reference>
-      <x:Reference>__ReferenceID7</x:Reference>
-      <x:Reference>__ReferenceID8</x:Reference>
-    </Flowchart>
     <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[number.ToString+&quot;営業日&quot;+out_ResultDateTime.ToString(&quot;yyyy/M/d&quot;)]" />
-    <sads:DebugSymbol.Symbol>d2xDOlxVc2Vyc1wxMjAwMDAzMzdcRG9jdW1lbnRzXFVpUGF0aFxTdGF0ZU1hY2hpbmVfVGVtcGxhdGUgLSDjgrPjg5Tjg7xcVG9vbFxHZXRfQmVmb3JlT3JBZnRlckJ1c2luZXNzRGF5LnhhbWwxAXIBjgEBAwG/AQHBAQECkQEDqAIOAgEBkwE0kwGaAQIBBJQBOJQBVQIBA5YBQJYBWQIBApoBBZoB0wECAUabAQWiAQ4CAUGjAQWqAQ4CATyrAQWyAQ4CATizAQXMARACASvNAQWlAhECAQemAgWmAsoBAgEFoAEyoAE/AgFEnQEznQE9AgFCqAE3qAFMAgE/pQE4pQFAAgE9sAEvsAFOAgE7rQEwrQFFAgE5tAEHwwEiAgEwxAEHywEQAgEs0AEL0AHaAQIBJNIBPdIBRwIBIvYBQfYBvQECAR/5AReAAiACARqCAkmCAmcCARiFAh+MAigCARPUAUHUAVICARLmARftASACAQ3XARfeASACAQimAnKmAscBAgEGtAHZAbQB7QECATa6AQ3AASECATHJAT7JAZEBAgEvxgE/xgFNAgEt0AHNAdAB1wECASnQAUfQAVcCASfQAbkB0AHFAQIBJf4BRP4BTgIBHfsBRfsBWQIBG4oCSYoCYAIBFocCSocCXwIBFOsBROsBWgIBEOgBRegBTwIBDtwBRNwBWgIBC9kBRdkBTwIBCboBPboBTgIBNL0BE70BQgIBM7oBpQG6AboBAgEy</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1lcXHNjZmxzcnZyXFJQQVxmbGVldFw5OS7lgIvkurrnlKhc546LXFVpcGF0aF9Ub29sc1xUb29sXEdldF9CZWZvcmVPckFmdGVyQnVzaW5lc3NEYXkueGFtbDIBcgGOAQEDAb8BAcEBAQKRAQO7Ag4CAQGTATSTAZoBAgEElAE4lAFVAgEDlgFAlgFZAgECmgEFmgHTAQIBSJsBBaIBDgIBQ6MBBaoBDgIBPqsBBbIBDgIBOrMBBbgCEAIBB7kCBbkCygECAQWgATKgAT8CAUadATOdAT0CAUSoATeoAUwCAUGlATilAUACAT+wAS+wAU4CAT2tATCtAUUCATu0AQe3AiICAQi5AnK5AscBAgEGtAHZAbQB7QECATi6AQ20AhkCAQm9ARPRAR4CASbTAUXTAU8CAST8AUn8AcUBAgEh/wEfhwIoAgEciQJRiQJvAgEajAInlAIwAgEV1QFJ1QFaAgEU6QEf8QEoAgEP2AEf4AEoAgEKvgEVxQEpAgEyxgEVzgEeAgEuzwEVzwHkAQIBJ4QCTIQCVgIBH4ECTYECYQIBHZECUZECaAIBGI4CUo4CZwIBFu4BTO4BYgIBEusBTesBVwIBEN0BTN0BYgIBDdoBTdoBVwIBC74BRb4BVgIBNsEBG8EBSgIBNb4Ber4BlAECATPLAUzLAZ8BAgExyAFNyAFbAgEvzwGeAc8BqAECASzPAVHPAWECASrPAYoBzwGWAQIBKA==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Comment_1" sap:VirtualizedContainerService.HintSize="1016,93" />
-      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="1016,62" />
-      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="1016,62" />
-      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="1016,62" />
-      <sap2010:ViewStateData Id="ExcelReadRange_2" sap:VirtualizedContainerService.HintSize="314,59" />
-      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="414,168" />
-      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="414,62" />
-      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="1016,424">
+      <sap2010:ViewStateData Id="Comment_1" sap:VirtualizedContainerService.HintSize="1074,93" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="1074,62" />
+      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="1074,62" />
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="1074,62" />
+      <sap2010:ViewStateData Id="ExcelReadRange_4" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="ExistsInCollection`1_6" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="200,54">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExistsInCollection`1_4" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="244,62" />
-      <sap2010:ViewStateData Id="FlowStep_4">
+      <sap2010:ViewStateData Id="Assign_16" sap:VirtualizedContainerService.HintSize="244,62" />
+      <sap2010:ViewStateData Id="FlowStep_9">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">78,719</av:Point>
             <av:Size x:Key="ShapeSize">244,62</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">200,781 200,811 39,811 39,150 380,150</av:PointCollection>
+            <av:PointCollection x:Key="ConnectorLocation">200,781 200,811 50,811 50,140 380,140</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="244,62">
+      <sap2010:ViewStateData Id="Assign_17" sap:VirtualizedContainerService.HintSize="244,62">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_6">
+      <sap2010:ViewStateData Id="FlowStep_10">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">338,719</av:Point>
             <av:Size x:Key="ShapeSize">244,62</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">460,781 460,811 40,811 40,150 380,150</av:PointCollection>
+            <av:PointCollection x:Key="ConnectorLocation">460,781 460,811 48,811 48,140 380,140</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_3" sap:VirtualizedContainerService.HintSize="70,87">
+      <sap2010:ViewStateData Id="FlowDecision_5" sap:VirtualizedContainerService.HintSize="70,87">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -350,21 +366,21 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="244,62">
+      <sap2010:ViewStateData Id="Assign_18" sap:VirtualizedContainerService.HintSize="244,62">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="244,62">
+      <sap2010:ViewStateData Id="Assign_19" sap:VirtualizedContainerService.HintSize="244,62">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_5">
+      <sap2010:ViewStateData Id="FlowStep_11">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">501.5,513.5</av:Point>
@@ -373,7 +389,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_4" sap:VirtualizedContainerService.HintSize="129,87">
+      <sap2010:ViewStateData Id="FlowDecision_6" sap:VirtualizedContainerService.HintSize="129,87">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -383,7 +399,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_7">
+      <sap2010:ViewStateData Id="FlowStep_12">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">758,379</av:Point>
@@ -392,7 +408,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_2" sap:VirtualizedContainerService.HintSize="70,87">
+      <sap2010:ViewStateData Id="FlowDecision_7" sap:VirtualizedContainerService.HintSize="70,87">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -403,7 +419,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_1" sap:VirtualizedContainerService.HintSize="70,87">
+      <sap2010:ViewStateData Id="FlowDecision_8" sap:VirtualizedContainerService.HintSize="70,87">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -414,37 +430,47 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_1">
+      <sap2010:ViewStateData Id="FlowStep_13">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">380,139</av:Point>
-            <av:Size x:Key="ShapeSize">200,22</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">480,161 480,196.5</av:PointCollection>
+            <av:Point x:Key="ShapeLocation">380,113</av:Point>
+            <av:Size x:Key="ShapeSize">200,54</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">480,167 480,196.5</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="1016,861">
+      <sap2010:ViewStateData Id="Flowchart_2" sap:VirtualizedContainerService.HintSize="200,54">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
             <av:Point x:Key="ShapeLocation">450,2.5</av:Point>
             <av:Size x:Key="ShapeSize">60,75</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">480,77.5 480,139</av:PointCollection>
+            <av:PointCollection x:Key="ConnectorLocation">480,77.5 480,113</av:PointCollection>
             <x:Double x:Key="Height">825</x:Double>
             <x:Double x:Key="Width">1002</x:Double>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="1016,97" />
-      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="1038,2025">
+      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="414,163" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="436,317">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="1074,97" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="1096,1948">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Get_BeforeBusinessDay_1" sap:VirtualizedContainerService.HintSize="1078,2225" />
+      <sap2010:ViewStateData Id="Get_BeforeBusinessDay_1" sap:VirtualizedContainerService.HintSize="1136,2028" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

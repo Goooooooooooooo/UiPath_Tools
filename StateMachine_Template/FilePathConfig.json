@@ -1,0 +1,16 @@
+{
+	"ResultFolder" : "\\\\scflsrvr\\フリートコントラクト部\\RPA\\テレマティスク請求書重複有無チェック\\実稼動\\01確認結果",
+	"ImgFolder" : "\\\\scflsrvr\\フリートコントラクト部\\RPA\\テレマティスク請求書重複有無チェック\\実稼動\\99screenshot",
+	"TempFolder" : "\\\\scflsrvr\\フリートコントラクト部\\RPA\\テレマティスク請求書重複有無チェック\\実稼動\\99テンプレート",
+	"ResultFileName" : "{0}テレマ請求データ重複チェック_入金年月{1}.xlsx",
+	"MailConfigFile":"\\\\scflsrvr\\フリートコントラクト部\\RPA\\テレマティスク請求書重複有無チェック\\実稼動\\【メール】テレマティスク請求データ重複チェック.xlsx",
+	"RunDayCheckFile" : "\\\\scflsrvr\\フリートコントラクト部\\RPA\\テレマティスク請求書重複有無チェック\\実稼動\\【作業指示】確認実施日.xlsx",
+	"TelematicsFolder1" : "\\\\scflsrvr\\フリートコントラクト部\\検収請求Group_308000949\\請求・支払\\テレマティクス",
+	"TelematicsFolder2" : "\\\\scflsrvr\\フリートコントラクト部\\検収請求Group_308000949\\請求・支払\\テレマティクス\\1003【確認用】営業用リスト {YYYY}年",
+	"TelematicsFileName" : "1003【確認用】営業用{YYYYMM}請求分.xlsm",
+	"ColIndexMap" : { 0:3, 1:4, 2:5, 3:6, 4:10,
+						5:12, 6:14, 7:15, 8:16, 9:19,
+						10:22, 11:23, 12:24, 13:25
+						},
+	"MonthNumber" : 2
+}

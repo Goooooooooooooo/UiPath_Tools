@@ -1,0 +1,287 @@
+﻿	//去除重复空格
+	regex = New Regex("\s{1,}")  
+	regex.Replaec(input String,replacement String) 
+
+	new Regex("(?<=［走行距離計表示値］)(.*?)(?=ｋｍ)")
+
+	//排序
+	From n In list Order By n Ascending Select n 
+
+	//group by
+	(From row In dt.Select() Group row by Column3 = row.Item("Column3").ToString,Column4 = row.Item("Column4").ToString Into Group Select Group(0)).ToArray.CopyToDataTable()
+	//group by 平均値
+	From c In Countries Group By ColumnName1 = c.col1 Into ColumnName2 = Average(c.col2) Select ColumnName1, ColumnName2
+	//Group By AND Sum
+	(From row In DT.AsEnumerable Group By ID = row(5) Into Total = Sum(row.Field(Of Double?)(9)) Select ID, Total).ToArray
+	
+	//DataTable Join (Left Join) Type:System.Collections.Generic.IEnumerable<Of Object>
+	(From A In LeaseTable.AsEnumerable Group Join B In AccTable.AsEnumerable 
+    	On (A.Field(Of String)("契約NO") & A.Field(Of String)("物件NO")) Equals (B.Field(Of String)("前契約NO") & B.Field(Of String)("前物件NO"))
+    	Into Group Let X = If(Group.FirstOrDefault Is Nothing, AccTable.Rows.Add, Group.FirstOrDefault)
+    	Select A.ItemArray.Concat(X.ItemArray)).ToList
+	
+	
+	(From row In table.AsEnumerable Select row).Where(Function(r) Convert.ToDateTime(r(0)) >= New Date(Now.Year, 1, 1)).CopyToDataTable 
+	
+	'sort
+	 wordArray = wordArray.OrderBy(Function(n)  n.data.Length).ThenBy(Function(n) n.data).ToArray()
+	 wordArray = wordArray.OrderByDescending(Function(n)  n.data.Length).ToArray()
+	 
+	 'GroupBy
+	 Dim group = details.GroupBy(Function(g) Tuple.Create(g.Item, g.category))
+	 io_CompileBillingDT.AsEnumerable.GroupBy(Function(r) New With { 
+	 	Key.Name = Convert.ToString(r("入金先名")), Key.Price = Convert.ToString(r("入金額")) }).Select(Function(g) g(0))
+	
+	(From row In io_BillingDetailDT.AsEnumerable Where Not String.IsNullOrEmpty(row.Field(Of String)("請求番号")) Group By ID = row.Field(Of String)("請求番号") Into Total = Sum(TryParse_Double(row("請求額（明細）").toString)) Select ID, Total).ToDictionary(Function(x) Convert.ToString(x.ID), Function(x) Convert.ToDouble(x.Total))
+	
+ Dim group = details.GroupBy(Function(g) New With(Key g.Item, Key g.category)).
+            Select(Function(x) New With {.groupItem = x.Key.Item1, .groupCategory = x.Key.Item2, .sumQuantity = x.Sum(Function(s) s.Quantity)}).
+            ToList
+            
+     Dim result = (From orders In dt.AsEnumerable
+                        Group orders By ID = orders.Field(Of String)("ID") Into g = Group
+                        Select New With {
+                            Key ID,
+                            .Amount = g.Sum(Function(r) r.Field(Of Decimal)("amount"))
+                       }).OrderBy(Function(tkey) tkey.ID).ToList()
+	
+	ReqDetailDT.AsEnumerable().Select(Function(r) r.Field(Of String)(0)).Distinct.ToArray
+	
+	unityTable.AsEnumerable().Distinct().CopyToDataTable()
+	
+	table.AsEnumerable().Where(Function(row) Convert.ToString(row("ColumnName"))).OrderByDescending(row => row.Field<int>("")).ToArray();
+
+	//Array 合致するもの取得
+	(From row In table.AsEnumerable Select row).Where(Function(r) arr.Contains(Convert.ToString(r("ColumnName")))).CopyToDataTable
+	
+	From row In loadedData Select Convert.ToString(row("Count")) Distinct
+	
+	ExtractDataTable.AsEnumerable().Where(Function(r) Convert.ToString(r(0)) <> "#").ToArray()
+	
+	//列名を配列にする
+	(From col In table.Columns.Cast(Of DataColumn) Select col.ColumnName).ToArray()
+	//指定した行数のデータ取得
+	((From row In table.DefaultView.ToTable(False,cols).AsEnumerable() Select row).Take(15)).CopyToDataTable()
+	((From row In table.AsEnumerable() Select row).Take(15)).ToList
+
+	//datatable to dictionary(of string, string)
+	senderMailTable.AsEnumerable().ToDictionary(Function(row) Convert.ToString(row(0)), Function(row) Convert.ToString(row(1)))
+	
+	//DataTableの中から""の一覧を取得
+	customers.AsEnumerable().Select(Function(cust) New With {.CustomerID = cust("CustomerID"), .ContactName = cust("ContactName"), .City = cust("")}).Where(Function(cust) cust.City = "")
+
+	//指定した列をarray
+	(From row in mailBodyDt.AsEnumerable() Select Convert.Tostring(row(0))).ToArray()
+	//指定した列重複排除して、配列にする
+	(From row In senderListTable.DefaultView.ToTable(True,"宛先").AsEnumerable() Select Convert.Tostring(row(0))).ToArray
+//datatable Join
+(From A In LeaseTable.AsEnumerable() Join B In OracleDataTable.AsEnumerable() On (Convert.ToString(A("契約NO")) & Convert.ToString(A("物件NO")))  Equals (Convert.ToString(B("前契約NO")) & Convert.ToString(B("前物件NO"))) Select A.ItemArray.Concat(B.ItemArray).ToArray).ToArray
+
+from row in dt.AsEnumerable() where (from _row in dt.AsEnumerable() where (ulong)row["id"] == (ulong)_row["id"] select _row["id"]).Count() > 1 select row;
+
+	'Func
+	TryParse_Double = CType(Function(number) IF(Double.TryParse(number, Nothing), Double.Parse(number), 0.0), Func(Of String, Double))
+	
+	Price_Contains = Function(dt, code, price) (dt.AsEnumerable().Where(Function(r) Convert.ToString(r(1)).Contains(code.ToString) AND Convert.ToString(r(8)).Contains(price.ToString)).ToArray).Count > 0
+
+
+	/*Collection	Array*/
+	
+	//Array 連結する
+	array1.Concat(array2).ToArray()
+	//重複を排除して連結する
+	array1.Union(array2).ToArray()
+	//二つの配列
+	keys.Zip(values, Function(k, v) New With {k, v}).ToDictionary(Function(a) a.k, Function(a) a.v)
+
+	list.Select(Function(value,index) new with{.index=index,.value=value}).Cast( of System.Object)
+
+	//Array[] null 削除
+	arr.Where(Function(x) Not String.IsNullOrEmpty(x)).ToArray
+	arr.Where(Function(x)  x <> "" ).ToArray
+
+	//'差集合を作成して、配列に変換する
+	arrTest= arrTest.Except(New String() {"Element to Remove"}).ToArray()
+	arrTest= arrTest.Except(New Integer() {1111}).ToArray()
+
+	fileKeyArray.FirstOrDefault(Function(f) fileItem.Contains(f))
+	
+	If( row("URL").ToString.ToUpper.Contains("FACEBOOK"), "facebook", If( row("URL").ToString.ToUpper.Contains("TWITTER"), "twitter", "default" )
+
+	var color = {red: function(){console.log("RED");}, blue: function(){console.log("BLUE");}, yellow: function(){console.log("YELLOW");}, default: function(){console.log("different color");}}	
+	
+	
+
+																
+	//正規表現でファイル取得																	//~$つけてるファイル排除する
+	(From file In Directory.GetFiles(FolderPath) Where System.Text.RegularExpressions.Regex.IsMatch(file,"^\\(.+)[^~$][0-9]{6}_(.+).xlsx") Select file).ToArray.Where(Function(x) Not x.Contains("~$") ).ToArray
+	//Get LastUpdateFile 	
+	(From file In Directory.GetFiles(Path.GetDirectoryName(filelink),Path.GetFileNameWithoutExtension(filelink)+"*.xlsx") Select file).ToArray.Where(Function(x) Not　x.Contains("~$") ).ToArray.ToList().Max()	
+	
+	//100KB以上のファイル一覧を取得
+	From file In IO.Directory.GetFiles(path) Where FileLen(file) >= 1024 * 100
+		
+	
+		
+	'MailMessageの作成
+	Dim msg As New System.Net.Mail.MailMessage()
+	'送信者
+	msg.From = New System.Net.Mail.MailAddress("sender@xxx.xxx")
+	'宛先
+	msg.To.Add(New System.Net.Mail.MailAddress("recipient@xxx.xxx"))
+	'あて先をもう一人追加
+	msg.To.Add(New System.Net.Mail.MailAddress("sato@xxx.xxx"))
+	'CC
+	msg.CC.Add(New System.Net.Mail.MailAddress("cc@xxx.xxx"))
+	'BCC
+	msg.Bcc.Add(New System.Net.Mail.MailAddress("bcc@xxx.xxx"))
+	'ReplyTo
+	msg.ReplyToList.Add(New System.Net.Mail.MailAddress("replyto@xxx.xxx"))
+	'.NET Framework 3.5以前では、以下のようにする
+	'msg.ReplyTo = New System.Net.Mail.MailAddress("replyto@xxx.xxx")
+	'Sender
+	msg.Sender = New System.Net.Mail.MailAddress("master@xxx.xxx")
+
+	'件名
+	msg.Subject = "こんにちは"
+	'本文
+	msg.Body = "こんにちは。" + vbCrLf + vbCrLf + "それではまた。"
+
+	'優先順位を「重要」にする
+	msg.Priority = System.Net.Mail.MailPriority.High
+	'メールの配達が遅れたとき、失敗したとき、正常に配達されたときに通知する
+	msg.DeliveryNotificationOptions = _
+    System.Net.Mail.DeliveryNotificationOptions.Delay Or _
+    System.Net.Mail.DeliveryNotificationOptions.OnFailure Or _
+    System.Net.Mail.DeliveryNotificationOptions.OnSuccess
+
+	'"C:\test\1.gif"を添付する
+	Dim attach1 As New System.Net.Mail.Attachment("C:\test\1.gif")
+	msg.Attachments.Add(attach1)
+	'さらに、"C:\test\2.gif"も添付する
+	Dim attach2 As New System.Net.Mail.Attachment("C:\test\2.gif")
+	msg.Attachments.Add(attach2)
+
+	Dim sc As New System.Net.Mail.SmtpClient()
+	'SMTPサーバーなどを設定する
+	sc.Host = "localhost"
+	sc.Port = 25
+	sc.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network
+	'メッセージを送信する
+	sc.Send(msg)
+
+	'後始末
+	msg.Dispose()
+	'後始末（.NET Framework 4.0以降）
+	sc.Dispose()	
+		
+
+	.unpkg
+	
+
+	TRUNC(LAST_DAY(ADD_MONTHS(SYSDATE,-1)))
+		
+
+	From txt In Me.Controls.OfType(Of TextBox)() Select txt.Text
+
+
+LINQの種類				読み方								データソース								備考
+LINQ to Objects			リンク トゥー オブジェクツ			配列やコレクションなど						基本的なLINQ
+LINQ to ADO.NET			リンク トゥー エィディーオゥドットネット	データベース、データ						LINQ to SQLとLINQ to DataSetを含む
+LINQ to XML				リンク トゥー エックスエムエル		XML	　
+
+	Range("H1:H7").VerticalAlignment = xlCenter '竖向居中
+    Range("H1:H7").VerticalAlignment = xlTop   '靠上对齐
+    Range("H1:H7").HorizontalAlignment = xlCenter '横向居中
+    Range("H1:H7").HorizontalAlignment = xlLeft  '左对齐
+    Range("H1:H7").HorizontalAlignment = xlRight  '靠右对齐
+		
+		
+		
+	Public Function ImageToBase64(ByVal image As Image, ByVal format As System.Drawing.Imaging.ImageFormat) As String
+		Using ms As New MemoryStream()
+‘ 			Convert Image to byte[] image.Save(ms, format)
+			Dim imageBytes As Byte() = ms.ToArray()’ Convert byte[] to Base64 String
+			Dim base64String As String = Convert.ToBase64String(imageBytes)
+			Return base64String
+		End Using
+End Function
+		
+		
+"[k(down)][k(home)][k(down)][k(enter)]"
+		
+Errオブジェクトのプロパティとメソッド
+
+Err.Clear			すべてのプロパティの設定値をクリア
+Err.Description		エラーに関する簡単な説明
+Err.HelpContext		ヘルプ ファイルのトピックに対応するコンテキスト番号
+Err.HelpFile		ヘルプ ファイルへの絶対バス
+Err.LastDllError	最後にダイナミック リンク ライブラリ (DLL) を呼び出したときのエラー コード
+Err.Number			エラーを指定する数値。エラーではない場合は0
+Err.Source			エラーの発生元のオブジェクトまたはアプリケーションの名前
+		
+		
+
+Dim rpt As New SectionReport1
+
+' 出力先プリンタを指定します。
+rpt.Document.Printer.PrinterName = "(PrinterName)"
+
+' 印刷部数を指定します。
+rpt.Document.Printer.PrinterSettings.Copies = 5
+
+' 両面印刷に設定します。
+rpt.PageSettings.Duplex = Printing.Duplex.Vertical
+rpt.Document.Printer.PrinterSettings.Duplex = Printing.Duplex.Vertical
+
+' カラー印刷に設定します。
+rpt.Document.Printer.DefaultPageSettings.Color = True
+rpt.Document.Printer.PrinterSettings.DefaultPageSettings.Color = True
+
+' 給紙トレイを設定します。
+For Each ps As System.Drawing.Printing.PaperSource In rpt.Document.Printer.PrinterSettings.PaperSources
+　　'「手差し」に設定します。
+　　If ps.Kind = Printing.PaperSourceKind.Manual Then
+　　　　rpt.PageSettings.DefaultPaperSource = False
+　　　　rpt.PageSettings.PaperSource = ps.Kind
+　　　　rpt.Document.Printer.DefaultPageSettings.PaperSource = ps
+　　　　rpt.Document.Printer.PrinterSettings.DefaultPageSettings.PaperSource = ps
+　　　　Exit For
+　　End If
+Next
+
+' レポートをプレビュー表示します。
+Me.Viewer1.LoadDocument(rpt)
+
+
+' ページレポートファイル（.rdlx）をロードします。
+Dim file_name As String = "PageReport1.rdlx"
+Dim rpt As New GrapeCity.ActiveReports.PageReport(New System.IO.FileInfo(file_name))
+Dim pageDocument As New GrapeCity.ActiveReports.Document.PageDocument(rpt)
+
+' 出力先プリンタを指定します。
+pageDocument.Printer.PrinterName = "(PrinterName)"
+
+' 印刷部数を指定します。
+pageDocument.Printer.PrinterSettings.Copies = 5
+
+' 両面印刷に設定します。
+pageDocument.Printer.PrinterSettings.Duplex = System.Drawing.Printing.Duplex.Vertical
+
+' カラー印刷に設定します。
+pageDocument.Printer.DefaultPageSettings.Color = True
+pageDocument.Printer.PrinterSettings.DefaultPageSettings.Color = True
+
+' 給紙トレイを設定します。
+For Each ps As System.Drawing.Printing.PaperSource In pageDocument.Printer.PrinterSettings.PaperSources
+　　'「手差し」に設定します。
+　　If ps.Kind = Printing.PaperSourceKind.Manual Then
+　　　　pageDocument.Printer.DefaultPageSettings.PaperSource = ps
+　　　　pageDocument.Printer.PrinterSettings.DefaultPageSettings.PaperSource = ps
+　　　　Exit For
+　　End If
+Next
+
+' レポートをプレビュー表示します。
+Me.Viewer1.LoadDocument(pageDocument)
+
